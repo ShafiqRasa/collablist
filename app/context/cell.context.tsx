@@ -58,14 +58,9 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
       });
     });
 
-    socketRef?.current?.on('itemInserted', (insertedItem) => {
-      console.log('received itemInserted', insertedItem);
-      setCells((currentCells) => {
-        const updatedCells = [...currentCells];
-        updatedCells.splice(insertedItem.position, 0, insertedItem.value);
-        return updatedCells;
-      });
-    });
+    socketRef?.current?.on('itemInserted', (updatedList) =>
+      setCells(updatedList),
+    );
 
     socketRef?.current?.on('itemDeleted', (deletedPosition) => {
       console.log('received itemDeleted');
@@ -91,9 +86,7 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
   };
 
   const handleInsert = (position: number) => {
-    console.log('position', position);
-    socketRef.current?.emit('insertItem', { position: position, value: '' });
-    console.log('insert sent to server');
+    socketRef.current?.emit('insertItem', position);
   };
 
   const handleDelete = (position: number) => {

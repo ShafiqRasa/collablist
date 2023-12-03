@@ -19,7 +19,7 @@ export const initializeSocket = (server: Server) => {
 
     socket.on('updateItem', (itemToUpdate) => updateItem({ io, itemToUpdate }));
 
-    socket.on('insertItem', (itemToInsert) => insertItem({ io, itemToInsert }));
+    socket.on('insertItem', (position) => insertItem({ io, position }));
 
     socket.on('deleteItem', (id) => deleteItem({ io, id }));
 
