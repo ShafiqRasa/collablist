@@ -4,3 +4,4 @@ export { default as NavBar } from './nav-bar/nav-bar.component';
 export { default as VerticalList } from './vertical-list/verticle-list.component';
 export { default as EditableCell } from './editable-cell/editable-cell.component';
 export { default as Button } from './button/button.component';
+export { default as ComplexList } from './complex-list/complex-list.component';
