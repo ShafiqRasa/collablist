@@ -8,7 +8,7 @@ import { Wrapper } from './home.page.styles';
 
 const App: React.FC = () => {
   return (
-    <Wrapper>
+    <Wrapper className="container">
       <h1>Editable Vertical List</h1>
       <VerticalList />
     </Wrapper>

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.section`
+  min-height: 70vh;
   h1 {
-    color: red;
+    margin: 1rem 0;
   }
 `;

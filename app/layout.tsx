@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { CellChangeContextProvider } from './context/cell.context';
 import StyledComponentsRegistry from './registry';
+import { Footer, Header } from './components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <CellChangeContextProvider>{children}</CellChangeContextProvider>
+          <CellChangeContextProvider>
+            <Header />
+            {children}
+            <Footer />
+          </CellChangeContextProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

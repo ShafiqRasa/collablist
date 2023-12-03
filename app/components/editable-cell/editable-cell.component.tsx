@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import { useCellContextProvider } from '../../context/cell.context';
 import { asyncItemType } from 'types/Entry';
