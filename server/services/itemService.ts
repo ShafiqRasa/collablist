@@ -3,7 +3,7 @@ import { Server as SocketServer } from 'socket.io';
 
 // internal imports
 import { checkValidId } from '../../validators/updateItemValidator';
-import { Entry, asyncItemType } from '../../types/Entry';
+import { asyncItemType } from '../../types/Entry';
 import { findPosition, ipProvider } from '../helper/index';
 
 const synchronizedArray = Array.from({ length: 8 }, (_v, i) => {
@@ -18,13 +18,13 @@ export const updateItem = ({
   itemToUpdate,
 }: {
   io: SocketServer;
-  itemToUpdate: Entry;
+  itemToUpdate: asyncItemType;
 }) => {
   console.log('updateItem received');
-  if (checkValidId(itemToUpdate.position, synchronizedArray)) {
-    // synchronizedArray[itemToUpdate.position] = itemToUpdate.value;
-    io.emit('itemUpdated', itemToUpdate as any);
-    console.log('itemUpdated sent');
+  if (checkValidId(itemToUpdate.id, synchronizedArray)) {
+    const position = findPosition(synchronizedArray, itemToUpdate.id);
+    synchronizedArray[position] = itemToUpdate;
+    io.emit('itemUpdated', synchronizedArray as any);
   }
 };
 
@@ -48,7 +48,6 @@ export const insertItem = ({
 };
 
 export const deleteItem = ({ io, id }: { io: SocketServer; id: number }) => {
-  console.log('deleteItem received', id);
   if (checkValidId(id, synchronizedArray)) {
     const positionToDelete = findPosition(synchronizedArray, id);
     synchronizedArray.splice(positionToDelete, 1)?.[0];

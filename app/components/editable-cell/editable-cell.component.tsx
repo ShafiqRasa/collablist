@@ -19,7 +19,7 @@ const EditableCell: React.FC<EditableCellProps> = ({ cell: { id, value } }) => {
   };
   const handleBlur = () => {
     if (valueUnderEdit !== value) {
-      handleCellChange(id, valueUnderEdit);
+      handleCellChange({ id, value: valueUnderEdit, focus: false });
     }
   };
 
