@@ -39,7 +39,9 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
 
     socketRef?.current?.on('list', (syncedArray) => {
       console.log('received list', syncedArray);
-      setCells(syncedArray);
+      console.log(syncedArray);
+
+      setCells(['test']);
     });
 
     socketRef?.current?.on('itemUpdated', (updatedItem) => {

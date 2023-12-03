@@ -1,7 +1,10 @@
+// built-in imports
 import http, { Server, ServerResponse, IncomingMessage } from 'http';
 import next from 'next';
 import { parse } from 'url';
 import { NextServer } from 'next/dist/server/next';
+
+// internal imports
 import { initializeSocket } from './socket';
 
 const dev: boolean = process.env.NODE_ENV !== 'production';
