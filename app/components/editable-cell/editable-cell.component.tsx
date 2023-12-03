@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useCellContextProvider } from '../../context/cell.context';
-
-type Cell = {
-  id: number;
-  value: string;
-};
+import { asyncItemType } from 'types/Entry';
 
 type EditableCellProps = {
-  cell: Cell;
+  cell: asyncItemType;
 };
 
-const EditableCell: React.FC<EditableCellProps> = ({ cell }) => {
+const EditableCell: React.FC<EditableCellProps> = ({ cell: { id, value } }) => {
   const { handleCellChange } = useCellContextProvider();
-  const [valueUnderEdit, setValueUnderEdit] = useState<string>(cell.value);
+  const [valueUnderEdit, setValueUnderEdit] = useState<string>(value);
 
   useEffect(() => {
-    setValueUnderEdit(cell.value);
-  }, [cell.value]);
+    setValueUnderEdit(value);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValueUnderEdit(e.target.value);
   };
   const handleBlur = () => {
-    if (valueUnderEdit !== cell.value) {
-      handleCellChange(cell.id, valueUnderEdit);
+    if (valueUnderEdit !== value) {
+      handleCellChange(id, valueUnderEdit);
     }
   };
 

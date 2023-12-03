@@ -8,9 +8,10 @@ import React, {
   useContext,
 } from 'react';
 import io, { Socket } from 'socket.io-client';
+import { asyncItemType } from 'types/Entry';
 
 interface ICellChangeContext {
-  cells: string[];
+  cells: asyncItemType[];
   handleCellChange: (id: number, value: string) => void;
   handleInsert: (position: number) => void;
   handleDelete: (position: number) => void;
@@ -30,7 +31,7 @@ type cellProviderProps = {
 export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
   children,
 }) => {
-  const [cells, setCells] = useState<string[]>([]);
+  const [cells, setCells] = useState<asyncItemType[]>([]);
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
@@ -39,9 +40,7 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
 
     socketRef?.current?.on('list', (syncedArray) => {
       console.log('received list', syncedArray);
-      console.log(syncedArray);
-
-      setCells(['test']);
+      setCells(syncedArray);
     });
 
     socketRef?.current?.on('itemUpdated', (updatedItem) => {
