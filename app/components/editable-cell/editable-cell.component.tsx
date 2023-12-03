@@ -1,7 +1,17 @@
 'use client';
+// built-in imports
 import React, { useEffect, useState } from 'react';
+import { FiEdit2 } from 'react-icons/fi';
+import { MdOutlineEditOff } from 'react-icons/md';
+
+// internal imports
 import { useCellContextProvider } from '../../context/cell.context';
 import { asyncItemType } from 'types/Entry';
+import {
+  Wrapper,
+  BlockContainer,
+  Input,
+} from './editable-cell.component.styles';
 
 type EditableCellProps = {
   cell: asyncItemType;
@@ -39,8 +49,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
   };
 
   return (
-    <div className="flex">
-      <input
+    <Wrapper>
+      <Input
         type="text"
         className="editable-cell-input m-2"
         disabled={shouldBlocked}
@@ -49,8 +59,16 @@ const EditableCell: React.FC<EditableCellProps> = ({
         onBlur={handleBlur}
         onFocus={handleFocus}
       />
-      <p>{isFocused && 'typing...'}</p>
-    </div>
+
+      {isFocused ? (
+        <BlockContainer>
+          <MdOutlineEditOff />
+          <p>typing...</p>
+        </BlockContainer>
+      ) : (
+        <FiEdit2 />
+      )}
+    </Wrapper>
   );
 };
 

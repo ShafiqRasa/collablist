@@ -7,4 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   gap: 1rem;
   border-bottom: 1px solid var(--text-secondary-color);
+  @media screen and (max-width: 900px) {
+    grid-template-columns: auto 1fr auto;
+  }
 `;
