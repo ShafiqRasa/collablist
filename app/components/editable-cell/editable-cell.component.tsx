@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CellChangeContext } from './context';
-import './styles.css';
+import { CellChangeContext } from '../../context/cell.context';
 
 type Cell = {
   id: number;
@@ -11,7 +10,7 @@ type EditableCellProps = {
   cell: Cell;
 };
 
-export const EditableCell: React.FC<EditableCellProps> = ({ cell }) => {
+const EditableCell: React.FC<EditableCellProps> = ({ cell }) => {
   const { handleCellChange } = useContext(CellChangeContext);
   const [valueUnderEdit, setValueUnderEdit] = useState<string>(cell.value);
 
@@ -38,3 +37,5 @@ export const EditableCell: React.FC<EditableCellProps> = ({ cell }) => {
     />
   );
 };
+
+export default EditableCell;

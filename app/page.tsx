@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { VerticalList } from './VerticalList';
+import { VerticalList } from './components';
 import io, { Socket } from 'socket.io-client';
-import { CellChangeContext } from './context';
+import { CellChangeContext } from './context/cell.context';
 
 const App: React.FC = () => {
   const [cells, setCells] = useState<string[]>([]);
