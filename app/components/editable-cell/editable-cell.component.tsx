@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CellChangeContext } from '../../context/cell.context';
+import React, { useEffect, useState } from 'react';
+import { useCellContextProvider } from '../../context/cell.context';
 
 type Cell = {
   id: number;
@@ -11,7 +11,7 @@ type EditableCellProps = {
 };
 
 const EditableCell: React.FC<EditableCellProps> = ({ cell }) => {
-  const { handleCellChange } = useContext(CellChangeContext);
+  const { handleCellChange } = useCellContextProvider();
   const [valueUnderEdit, setValueUnderEdit] = useState<string>(cell.value);
 
   useEffect(() => {

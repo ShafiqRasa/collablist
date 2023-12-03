@@ -1,15 +1,15 @@
 'use client';
+// built-in imports
+import React from 'react';
 
-import React, { useContext } from 'react';
+// internal imports
 import { EditableCell } from '../index';
-import { CellChangeContext } from '../../context/cell.context';
+import { useCellContextProvider } from '../../context/cell.context';
 
-type VerticalListProps = {
-  cells: string[];
-};
+const VerticalList: React.FC = () => {
+  const { cells, handleInsert, handleDelete } = useCellContextProvider();
 
-const VerticalList: React.FC<VerticalListProps> = ({ cells }) => {
-  const { handleInsert, handleDelete } = useContext(CellChangeContext);
+  console.log('cells', cells);
 
   return (
     <div>
