@@ -98,7 +98,6 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
 
   const handleDelete = (position: number) => {
     socketRef.current?.emit('deleteItem', position);
-    console.log('delete sent to server');
   };
 
   return (

@@ -21,9 +21,7 @@ export const initializeSocket = (server: Server) => {
 
     socket.on('insertItem', (itemToInsert) => insertItem({ io, itemToInsert }));
 
-    socket.on('deleteItem', (positionToDelete) =>
-      deleteItem({ io, positionToDelete }),
-    );
+    socket.on('deleteItem', (id) => deleteItem({ io, id }));
 
     socket.on('disconnect', () => {
       console.log('user disconnected');
