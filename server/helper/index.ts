@@ -10,4 +10,4 @@ const findMaxId = (list: asyncItemType[]): number =>
   Math.max(...list.map((item) => item.id));
 
 export const ipProvider = (list: asyncItemType[]): number =>
-  findMaxId(list) + 1;
+  list.length ? findMaxId(list) + 1 : 1;
