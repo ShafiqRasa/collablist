@@ -1,5 +1,8 @@
+// built-in imports
 import { Server } from 'http';
 import { Server as SocketServer, Socket } from 'socket.io';
+
+// internal imports
 import {
   deleteItem,
   getSyncArray,

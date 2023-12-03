@@ -1,10 +1,15 @@
-import { checkValidPosition } from '../../validators/updateItemValidator';
+// built-in imports
 import { Server as SocketServer } from 'socket.io';
-import { Entry } from '../../types/Entry';
 
-const synchronizedArray = Array.from({ length: 8 }, (_v, i) => "Default Entry " + i);
+// internal imports
+import { checkValidPosition } from '../../validators/updateItemValidator';
+import { Entry, asyncItemType } from '../../types/Entry';
 
-export const getSyncArray = (): string[] => {
+const synchronizedArray = Array.from({ length: 8 }, (_v, i) => {
+  return { id: 1, value: 'Default Entry ' + i, focus: false };
+});
+
+export const getSyncArray = (): asyncItemType[] => {
   return synchronizedArray;
 };
 export const updateItem = ({
@@ -16,7 +21,7 @@ export const updateItem = ({
 }) => {
   console.log('updateItem received');
   if (checkValidPosition(itemToUpdate.position, synchronizedArray.length)) {
-    synchronizedArray[itemToUpdate.position] = itemToUpdate.value;
+    // synchronizedArray[itemToUpdate.position] = itemToUpdate.value;
     io.emit('itemUpdated', itemToUpdate as any);
     console.log('itemUpdated sent');
   }
@@ -30,7 +35,7 @@ export const insertItem = ({
   itemToInsert: Entry;
 }) => {
   console.log('insertItem received');
-  synchronizedArray.splice(itemToInsert.position, 0, itemToInsert.value);
+  // synchronizedArray.splice(itemToInsert.position, 0, itemToInsert.value);
   io.emit('itemInserted', itemToInsert as any);
   console.log('itemInserted sent');
 };
@@ -55,7 +60,7 @@ export const putArray = ({
   updatedArray,
 }: {
   io: SocketServer;
-  updatedArray: string[];
+  updatedArray: asyncItemType[];
 }) => {
   synchronizedArray.length = 0; // Clear the array
   synchronizedArray.push(...updatedArray); // Update with new data
