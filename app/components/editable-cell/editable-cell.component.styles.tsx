@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  margin-bottom: -13px;
 `;
 
 export const Input = styled.input`
@@ -17,7 +18,7 @@ export const Input = styled.input`
   letter-spacing: 1px;
   transition: var(--transition);
   &:focus {
-    border-bottom: 2px solid var(--blue);
+    border-bottom: 2px solid blue;
   }
 `;
 export const BlockContainer = styled.div`

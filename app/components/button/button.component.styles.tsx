@@ -9,4 +9,23 @@ export const BaseButton = styled.button`
   text-align: center;
   border: none;
   text-transform: uppercase;
+  &:hover {
+    background-color: #2b6fdc;
+  }
+`;
+export const InsertButton = styled.button`
+  background-color: transparent;
+  padding: 5px;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const DeleteButton = styled.button`
+  background-color: transparent;
+  padding: 5px;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
