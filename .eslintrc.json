@@ -1,7 +1,21 @@
 {
   "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react", "react-hooks", "eslint-plugin-react-hooks"],
   "rules": {
-    "prettier/prettier": "error"
+    "no-console": "warn",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        "message": "Unexpected property on console object was called"
+      }
+    ],
+    "prettier/prettier": "error",
+    "react/prop-types": ["warn"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "error",
+      { "additionalHooks": "useCustomHook" }
+    ]
   }
 }

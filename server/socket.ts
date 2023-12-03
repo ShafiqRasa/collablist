@@ -14,7 +14,6 @@ export const initializeSocket = (server: Server) => {
   const io: SocketServer = new SocketServer(server);
 
   io.on('connection', (socket: Socket) => {
-    console.log('a user connected');
     socket.emit('list', getSyncArray());
 
     socket.on('updateItem', (itemToUpdate) => updateItem({ io, itemToUpdate }));

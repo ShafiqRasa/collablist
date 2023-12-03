@@ -34,7 +34,6 @@ export const insertItem = ({
   io: SocketServer;
   position: number;
 }) => {
-  console.log('new item in this positoin should be inserted', position);
   const newId = ipProvider(synchronizedArray);
   const newItem = {
     id: newId,
@@ -43,7 +42,6 @@ export const insertItem = ({
   };
   synchronizedArray.splice(position, 0, newItem);
   io.emit('itemInserted', synchronizedArray as any);
-  console.log('itemInserted sent');
 };
 
 export const deleteItem = ({ io, id }: { io: SocketServer; id: number }) => {

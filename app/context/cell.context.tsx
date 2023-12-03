@@ -36,10 +36,7 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
 
   useEffect(() => {
     socketRef.current = io();
-    console.log('connected');
-
     socketRef?.current?.on('list', (syncedArray) => {
-      console.log('received list', syncedArray);
       setCells(syncedArray);
     });
 
@@ -52,7 +49,6 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
     );
 
     socketRef?.current?.on('itemDeleted', (deletedPosition) => {
-      console.log('received itemDeleted');
       setCells((currentCells) => {
         const updatedCells = [...currentCells];
         if (deletedPosition >= 0 && deletedPosition < updatedCells.length) {
@@ -71,7 +67,6 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
 
   const handleCellChange = (item: asyncItemType) => {
     socketRef.current?.emit('updateItem', item);
-    console.log('update sent to server');
   };
 
   const handleInsert = (position: number) => {
