@@ -3,14 +3,21 @@
 import React from 'react';
 
 // internal imports
-import { VerticalList } from './components';
+import { Wrapper } from './home.page.styles';
+import { ComplexList, Item } from './components';
+import { useCellContextProvider } from './context/cell.context';
 
 const App: React.FC = () => {
+  const { cells } = useCellContextProvider();
   return (
-    <div className="container mx-auto">
+    <Wrapper className="container">
       <h1>Editable Vertical List</h1>
-      <VerticalList />
-    </div>
+      <ComplexList data={cells}>
+        {({ id, value, focus }, position) => (
+          <Item data={{ position, id, value, focus }} />
+        )}
+      </ComplexList>
+    </Wrapper>
   );
 };
 
