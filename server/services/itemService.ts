@@ -20,7 +20,6 @@ export const updateItem = ({
   io: SocketServer;
   itemToUpdate: asyncItemType;
 }) => {
-  console.log('updateItem received');
   if (checkValidId(itemToUpdate.id, synchronizedArray)) {
     const position = findPosition(synchronizedArray, itemToUpdate.id);
     synchronizedArray[position] = itemToUpdate;
