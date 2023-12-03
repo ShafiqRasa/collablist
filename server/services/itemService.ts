@@ -4,7 +4,7 @@ import { Server as SocketServer } from 'socket.io';
 // internal imports
 import { checkValidId } from '../../validators/updateItemValidator';
 import { Entry, asyncItemType } from '../../types/Entry';
-import { findPosition } from '../helper/index';
+import { findPosition, ipProvider } from '../helper/index';
 
 const synchronizedArray = Array.from({ length: 8 }, (_v, i) => {
   return { id: i + 1, value: 'Default Entry ' + i, focus: false };
@@ -30,14 +30,20 @@ export const updateItem = ({
 
 export const insertItem = ({
   io,
-  itemToInsert,
+  position,
 }: {
   io: SocketServer;
-  itemToInsert: Entry;
+  position: number;
 }) => {
-  console.log('insertItem received');
-  // synchronizedArray.splice(itemToInsert.position, 0, itemToInsert.value);
-  io.emit('itemInserted', itemToInsert as any);
+  console.log('new item in this positoin should be inserted', position);
+  const newId = ipProvider(synchronizedArray);
+  const newItem = {
+    id: newId,
+    value: '',
+    focus: false,
+  };
+  synchronizedArray.splice(position, 0, newItem);
+  io.emit('itemInserted', synchronizedArray as any);
   console.log('itemInserted sent');
 };
 
