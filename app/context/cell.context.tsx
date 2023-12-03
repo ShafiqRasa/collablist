@@ -12,7 +12,7 @@ import { asyncItemType } from 'types/Entry';
 
 interface ICellChangeContext {
   cells: asyncItemType[];
-  handleCellChange: (id: number, value: string) => void;
+  handleCellChange: (item: asyncItemType) => void;
   handleInsert: (position: number) => void;
   handleDelete: (position: number) => void;
 }
@@ -80,8 +80,8 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
     };
   }, []);
 
-  const handleCellChange = (id: number, value: string) => {
-    socketRef.current?.emit('updateItem', { position: id, value: value });
+  const handleCellChange = (item: asyncItemType) => {
+    socketRef.current?.emit('updateItem', item);
     console.log('update sent to server');
   };
 
