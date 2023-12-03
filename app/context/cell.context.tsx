@@ -43,19 +43,8 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
       setCells(syncedArray);
     });
 
-    socketRef?.current?.on('itemUpdated', (updatedItem) => {
-      setCells((currentCells) => {
-        const updatedCells = [...currentCells];
-        if (
-          updatedItem.position >= 0 &&
-          updatedItem.position < updatedCells.length
-        ) {
-          updatedCells[updatedItem.position] = updatedItem.value;
-        } else {
-          console.log('illegal update position ' + updatedItem.position);
-        }
-        return updatedCells;
-      });
+    socketRef?.current?.on('itemUpdated', (updatedList) => {
+      setCells(updatedList);
     });
 
     socketRef?.current?.on('itemInserted', (updatedList) =>
