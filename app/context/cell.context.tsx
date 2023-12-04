@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import io, { Socket } from 'socket.io-client';
 import { asyncItemType } from 'types/Entry';
+import { toast } from 'react-toastify';
 
 interface ICellChangeContext {
   cells: asyncItemType[];
@@ -33,7 +34,6 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
 }) => {
   const [cells, setCells] = useState<asyncItemType[]>([]);
   const socketRef = useRef<Socket | null>(null);
-
   useEffect(() => {
     socketRef.current = io();
     socketRef?.current?.on('list', (syncedArray) => {
@@ -54,7 +54,7 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
         if (deletedPosition >= 0 && deletedPosition < updatedCells.length) {
           updatedCells.splice(deletedPosition, 1);
         } else {
-          console.log('illegal delete position ' + deletedPosition);
+          toast.error('illegal delete position');
         }
         return updatedCells;
       });
