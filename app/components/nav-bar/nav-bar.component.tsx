@@ -14,8 +14,10 @@ const NavBar: React.FC = () => {
 
   /** when list is empty, user can insert an item! */
   const handleClick = () => {
-    if (!cells.length) handleInsert(0);
-    toast.success('Cell added successfully!');
+    if (!cells.length) {
+      handleInsert(0);
+      toast.success('Cell added successfully!');
+    }
   };
   return (
     <Wrapper>
