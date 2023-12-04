@@ -2,17 +2,15 @@
 import { Server as SocketServer } from 'socket.io';
 
 // internal imports
-import { checkValidId } from '../../validators/updateItemValidator';
 import { asyncItemType } from '../../types/Entry';
-import { findPosition, ipProvider } from '../helper/index';
+import { findPosition, ipProvider, checkValidId } from '../helper/index';
 
 const synchronizedArray = Array.from({ length: 8 }, (_v, i) => {
   return { id: i + 1, value: 'Default Entry ' + i, focus: false };
 });
 
-export const getSyncArray = (): asyncItemType[] => {
-  return synchronizedArray;
-};
+export const getSyncArray = (): asyncItemType[] => synchronizedArray;
+
 export const updateItem = ({
   io,
   itemToUpdate,

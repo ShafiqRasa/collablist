@@ -11,3 +11,7 @@ const findMaxId = (list: asyncItemType[]): number =>
 
 export const ipProvider = (list: asyncItemType[]): number =>
   list.length ? findMaxId(list) + 1 : 1;
+
+export const checkValidId = (id: number, list: asyncItemType[]): boolean =>
+  !!list.find((item) => item.id === id);
+/**  use double negetion sign to parse the result to the logical value true or false */

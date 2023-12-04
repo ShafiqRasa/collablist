@@ -31,7 +31,5 @@ app.prepare().then(() => {
 
   initializeSocket(server);
 
-  server.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-  });
+  server.listen(port, () => console.log(`Server listening on port ${port}`));
 });
