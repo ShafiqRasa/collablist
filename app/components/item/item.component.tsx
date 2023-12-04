@@ -3,6 +3,7 @@
 import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import { IoIosAddCircle } from 'react-icons/io';
+import { toast } from 'react-toastify';
 
 // internal imports
 import { asyncItemType } from 'types/Entry';
@@ -17,8 +18,14 @@ const Item: React.FC<itemProps> = ({
   data: { position, id, value, focus },
 }) => {
   const { handleDelete, handleInsert } = useCellContextProvider();
-  const handleItemDelete = () => handleDelete(id);
-  const handleItemInsert = () => handleInsert(position);
+  const handleItemDelete = () => {
+    handleDelete(id);
+    toast.success('Cell deleted successfully!');
+  };
+  const handleItemInsert = () => {
+    handleInsert(position);
+    toast.success('Cell inserted successfully!');
+  };
   return (
     <Wrapper>
       <p>{position + 1}</p>

@@ -1,4 +1,6 @@
 'use client';
+// built-in imports
+import { toast } from 'react-toastify';
 // internal imports
 import { Wrapper, Section, Path } from './nav-bar.component.styles';
 import { Button } from '../index';
@@ -8,7 +10,10 @@ const NavBar = () => {
   const { cells, handleInsert } = useCellContextProvider();
 
   /** only list is empty, user can insert an item! */
-  const handleClick = () => !cells.length && handleInsert(0);
+  const handleClick = () => {
+    if (!cells.length) handleInsert(0);
+    toast.success('Cell added successfully!');
+  };
   return (
     <Wrapper>
       <Section className="container">
