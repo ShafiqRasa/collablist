@@ -8,15 +8,14 @@ import React, {
   useContext,
 } from 'react';
 import io, { Socket } from 'socket.io-client';
-import { asyncItemType } from 'types/Entry';
 import { toast } from 'react-toastify';
 
-interface ICellChangeContext {
-  cells: asyncItemType[];
-  handleCellChange: (item: asyncItemType) => void;
-  handleInsert: (position: number) => void;
-  handleDelete: (position: number) => void;
-}
+// inernal imports
+import {
+  asyncItemType,
+  cellProviderProps,
+  ICellChangeContext,
+} from 'types/Entry';
 
 export const CellChangeContext = createContext<ICellChangeContext>({
   cells: [],
@@ -25,10 +24,6 @@ export const CellChangeContext = createContext<ICellChangeContext>({
   handleDelete: () => {},
 });
 
-type cellProviderProps = {
-  children: React.ReactNode;
-};
-
 export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
   children,
 }) => {
@@ -36,13 +31,12 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
   const socketRef = useRef<Socket | null>(null);
   useEffect(() => {
     socketRef.current = io();
-    socketRef?.current?.on('list', (syncedArray) => {
-      setCells(syncedArray);
-    });
 
-    socketRef?.current?.on('itemUpdated', (updatedList) => {
-      setCells(updatedList);
-    });
+    socketRef?.current?.on('list', (syncedArray) => setCells(syncedArray));
+
+    socketRef?.current?.on('itemUpdated', (updatedList) =>
+      setCells(updatedList),
+    );
 
     socketRef?.current?.on('itemInserted', (updatedList) =>
       setCells(updatedList),
@@ -65,17 +59,15 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
     };
   }, []);
 
-  const handleCellChange = (item: asyncItemType) => {
+  /** it is always recommended to have implicit return in arrow function when it has only one expression */
+  const handleCellChange = (item: asyncItemType) =>
     socketRef.current?.emit('updateItem', item);
-  };
 
-  const handleInsert = (position: number) => {
+  const handleInsert = (position: number) =>
     socketRef.current?.emit('insertItem', position);
-  };
 
-  const handleDelete = (position: number) => {
+  const handleDelete = (position: number) =>
     socketRef.current?.emit('deleteItem', position);
-  };
 
   return (
     <CellChangeContext.Provider
