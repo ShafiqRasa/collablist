@@ -10,6 +10,7 @@ import { asyncItemType } from 'types/Entry';
 import { Wrapper, Actions } from './item.component.styles';
 import { Button, EditableCell } from '../index';
 import { useCellContextProvider } from 'app/context/cell.context';
+import { BUTTON_TYPES } from '../button/button.component';
 
 type itemProps = {
   data: asyncItemType & { position: number };
@@ -31,10 +32,10 @@ const Item: React.FC<itemProps> = ({
       <p>{position + 1}</p>
       <EditableCell cell={{ id, value, focus }} />
       <Actions>
-        <Button btnType="insert" onClick={handleItemInsert}>
+        <Button btnType={BUTTON_TYPES.insert} onClick={handleItemInsert}>
           <IoIosAddCircle className="insert-icon" />
         </Button>
-        <Button btnType="delete" onClick={handleItemDelete}>
+        <Button btnType={BUTTON_TYPES.delete} onClick={handleItemDelete}>
           <MdDelete className="delete-icon" />
         </Button>
       </Actions>

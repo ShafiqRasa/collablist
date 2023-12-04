@@ -18,10 +18,14 @@ type EditableCellProps = {
 };
 
 const EditableCell: React.FC<EditableCellProps> = ({
-  cell: { id, value, focus },
+  cell: { id, value, focus } /** Props destructuring as a best pracitce */,
 }) => {
   const { handleCellChange } = useCellContextProvider();
   const [valueUnderEdit, setValueUnderEdit] = useState<string>(value);
+
+  useEffect(() => {
+    setValueUnderEdit(value);
+  }, [value]);
 
   /** find the user who focused the input box, to style input accordingly */
   const isFocused =
@@ -31,13 +35,9 @@ const EditableCell: React.FC<EditableCellProps> = ({
   const shouldBlocked =
     focus && id.toString() !== localStorage.getItem('focusedId');
 
-  useEffect(() => {
-    setValueUnderEdit(value);
-  }, [value]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValueUnderEdit(e.target.value);
-  };
+
   const handleBlur = () => {
     handleCellChange({ id, value: valueUnderEdit, focus: false });
     localStorage.setItem('focusedId', '0');
