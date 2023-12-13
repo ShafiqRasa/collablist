@@ -5,3 +5,8 @@ We have an editable list that users collaborate on concurrently. Each item in th
 ![step1](https://github.com/ShafiqRasa/collablist/assets/60951852/f0f8f59d-ffa6-47c7-bf2a-2bf4065ebbd8)
 ![step2](https://github.com/ShafiqRasa/collablist/assets/60951852/defed047-d97a-44f1-86c4-7badd14d293d)
 ![step3](https://github.com/ShafiqRasa/collablist/assets/60951852/f62aa654-0364-41be-9138-4f39a49c7c51)
+
+# With provided solution, no longer users encounter any issue even using concurrently!
+
+## Final Layout
+![layout](https://github.com/ShafiqRasa/collablist/assets/60951852/2cac7a56-26f3-4ee8-baff-584ff5d6171a)
