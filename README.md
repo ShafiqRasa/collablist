@@ -23,6 +23,7 @@ Top-level folders
 - public -- static files, not used here (yet)
 - types -- shared types between client and server
 
+  ## Continue with this links
 [Task Description](task.md)
-##
-[Purposed Description](fix.md)
+#
+[Solution Description](fix.md)
