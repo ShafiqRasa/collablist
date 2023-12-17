@@ -52,9 +52,13 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
       });
     });
 
-    socketRef?.current?.on('itemInserted', (updatedList) =>
-      setCells(updatedList),
-    );
+    socketRef?.current?.on('itemInserted', ({ position, newItem }) => {
+      setCells((currentCells) => {
+        const updatedCells = [...currentCells];
+        updatedCells.splice(position, 0, newItem);
+        return updatedCells;
+      });
+    });
 
     socketRef?.current?.on('itemDeleted', (deletedPosition) => {
       setCells((currentCells) => {

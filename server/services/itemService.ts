@@ -39,7 +39,7 @@ export const insertItem = ({
     focus: false,
   };
   synchronizedArray.splice(position, 0, newItem);
-  io.emit('itemInserted', synchronizedArray as any);
+  io.emit('itemInserted', { position, newItem } as any);
 };
 
 export const deleteItem = ({ io, id }: { io: SocketServer; id: number }) => {
