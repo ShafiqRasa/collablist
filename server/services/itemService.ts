@@ -21,7 +21,7 @@ export const updateItem = ({
   if (checkValidId(itemToUpdate.id, synchronizedArray)) {
     const position = findPosition(synchronizedArray, itemToUpdate.id);
     synchronizedArray[position] = itemToUpdate;
-    io.emit('itemUpdated', synchronizedArray as any);
+    io.emit('itemUpdated', itemToUpdate as any);
   }
 };
 

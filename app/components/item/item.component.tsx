@@ -19,6 +19,7 @@ const Item: React.FC<itemProps> = ({
   data: { position, id, value, focus },
 }) => {
   const { handleDelete, handleInsert } = useCellContextProvider();
+
   const handleItemDelete = () => {
     handleDelete(id);
     toast.success('Cell deleted successfully!');

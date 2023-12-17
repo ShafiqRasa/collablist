@@ -27,6 +27,21 @@ const EditableCell: React.FC<EditableCellProps> = ({
     setValueUnderEdit(value);
   }, [value]);
 
+  useEffect(() => {
+    if (localStorage.getItem('focusedId') === '0') return;
+    const unloadCallback = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      handleCellChange({ id, value: valueUnderEdit, focus: false });
+      return (event.returnValue = '');
+    };
+
+    window.addEventListener('beforeunload', unloadCallback, { capture: true });
+    return () =>
+      window.removeEventListener('beforeunload', unloadCallback, {
+        capture: true,
+      });
+  }, [focus]);
+
   /** find the user who focused the input box, to style input accordingly */
   const isFocused =
     focus && id.toString() === localStorage.getItem('focusedId');
