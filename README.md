@@ -1,4 +1,4 @@
-## Skoove Fullstack Coding Challenge "collaborative list"
+##collaborative list
 
 This is a [Next.js](https://nextjs.org/) project
 
