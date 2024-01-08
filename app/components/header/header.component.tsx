@@ -6,7 +6,7 @@ import { Wrapper, Logo } from './header.component.styles';
 const Header: React.FC = () => {
   return (
     <Wrapper>
-      <Logo>Skoove GmbH</Logo>
+      <Logo>Collaborative List</Logo>
     </Wrapper>
   );
 };
