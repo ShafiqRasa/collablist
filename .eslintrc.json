@@ -2,7 +2,7 @@
   "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
   "plugins": ["prettier", "react", "react-hooks", "eslint-plugin-react-hooks"],
   "rules": {
-    "no-console": "warn",
+    "no-console": "off",
     "no-restricted-syntax": [
       "error",
       {
