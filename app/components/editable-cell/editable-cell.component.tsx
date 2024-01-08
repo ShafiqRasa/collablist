@@ -40,7 +40,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
       window.removeEventListener('beforeunload', unloadCallback, {
         capture: true,
       });
-  }, [focus]);
+  }, [focus, id, valueUnderEdit, handleCellChange]);
 
   /** find the user who focused the input box, to style input accordingly */
   const isFocused =
