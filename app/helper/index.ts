@@ -9,7 +9,7 @@ export const findPosition = (list: asyncItemType[], id: number): number =>
 const findMaxId = (list: asyncItemType[]): number =>
   Math.max(...list.map((item) => item.id));
 
-export const ipProvider = (list: asyncItemType[]): number =>
+export const idProvider = (list: asyncItemType[]): number =>
   list.length ? findMaxId(list) + 1 : 1;
 
 export const checkValidId = (id: number, list: asyncItemType[]): boolean =>

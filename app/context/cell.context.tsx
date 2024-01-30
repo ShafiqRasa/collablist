@@ -1,14 +1,7 @@
 'use client';
+import { checkValidId, findPosition, idProvider } from 'app/helper';
 // built-in imports
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-} from 'react';
-import io, { Socket } from 'socket.io-client';
-import { toast } from 'react-toastify';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 // inernal imports
 import {
@@ -24,23 +17,37 @@ export const CellChangeContext = createContext<ICellChangeContext>({
   handleDelete: () => {},
 });
 
+const synchronizedArray = Array.from({ length: 8 }, (_v, i) => {
+  return { id: i + 1, value: 'Default Entry ' + i, focus: false };
+});
+
 export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
   children,
 }) => {
   const [cells, setCells] = useState<asyncItemType[]>([]);
-  const socketRef = useRef<Socket | null>(null);
+
   useEffect(() => {
-    socketRef.current = io();
+    if (
+      !localStorage.getItem('collist') ||
+      JSON.parse(localStorage.getItem('collist') as string).length === 0
+    ) {
+      localStorage.setItem('collist', JSON.stringify(synchronizedArray));
+      console.log('here');
+    }
+    setCells(JSON.parse(localStorage.getItem('collist') as string));
+  }, []);
 
-    socketRef?.current?.on('list', (syncedArray) => setCells(syncedArray));
+  /** it is always recommended to have implicit return in arrow function when it has only one expression */
+  const handleCellChange = (item: asyncItemType) => {
+    console.log('item in focus:', item);
 
-    socketRef?.current?.on('itemUpdated', (updatedItem) => {
+    if (checkValidId(item.id, cells)) {
       setCells((currentCells) => {
         let i = 0;
-        return currentCells.reduce(
+        const updatedCells = currentCells.reduce(
           (acc: asyncItemType[], curr: asyncItemType) => {
-            if (curr.id === updatedItem.id) {
-              acc[i] = updatedItem;
+            if (curr.id === item.id) {
+              acc[i] = item;
             } else {
               acc[i] = curr;
             }
@@ -49,43 +56,57 @@ export const CellChangeContextProvider: React.FC<cellProviderProps> = ({
           },
           [],
         );
-      });
-    });
-
-    socketRef?.current?.on('itemInserted', ({ position, newItem }) => {
-      setCells((currentCells) => {
-        const updatedCells = [...currentCells];
-        updatedCells.splice(position, 0, newItem);
+        localStorage.setItem('collist', JSON.stringify(updatedCells));
         return updatedCells;
       });
-    });
+    }
+  };
 
-    socketRef?.current?.on('itemDeleted', (deletedPosition) => {
-      setCells((currentCells) => {
-        const updatedCells = [...currentCells];
-        if (deletedPosition >= 0 && deletedPosition < updatedCells.length) {
-          updatedCells.splice(deletedPosition, 1);
-        } else {
-          toast.error('illegal delete position');
-        }
-        return updatedCells;
-      });
-    });
+  const handleInsert = (position: number) => {
+    console.log('targated position:', position);
 
-    return () => {
-      socketRef?.current?.disconnect();
+    const newId = idProvider(cells);
+    const newItem = {
+      id: newId,
+      value: '',
+      focus: false,
     };
-  }, []);
 
-  /** it is always recommended to have implicit return in arrow function when it has only one expression */
-  const handleCellChange = (item: asyncItemType) =>
-    socketRef.current?.emit('updateItem', item);
+    setCells((currentCells) => {
+      let i = 0;
+      const updatedCells = currentCells.reduce(
+        (acc: asyncItemType[], curr: asyncItemType) => {
+          if (i === position) {
+            acc[i] = newItem;
+            acc[i + 1] = curr;
+            i++;
+          } else {
+            acc[i] = curr;
+          }
+          i++;
+          return acc;
+        },
+        [],
+      );
+      localStorage.setItem('collist', JSON.stringify(updatedCells));
+      return updatedCells;
+    });
+  };
 
-  const handleInsert = (position: number) =>
-    socketRef.current?.emit('insertItem', position);
+  const handleDelete = (id: number) => {
+    if (checkValidId(id, cells)) {
+      const positionToDelete = findPosition(cells, id);
+      console.log(positionToDelete);
 
-  const handleDelete = (position: number) =>
-    socketRef.current?.emit('deleteItem', position);
+      setCells((currentCells) => {
+        const updatedCells = currentCells.filter(
+          (_, i) => i !== positionToDelete,
+        );
+        localStorage.setItem('collist', JSON.stringify(updatedCells));
+        return updatedCells;
+      });
+    }
+  };
 
   return (
     <CellChangeContext.Provider
