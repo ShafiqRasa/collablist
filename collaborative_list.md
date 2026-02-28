@@ -1,4 +1,4 @@
-## Challenge
+## collaborative list
 
 The expected functionality is a collaborative list, like a one-dimensional spreadsheet.
 
