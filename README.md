@@ -23,7 +23,7 @@ Top-level folders
 - public -- static files, not used here (yet)
 - types -- shared types between client and server
 
-  ## Continue with this links
-[Task Description](task.md)
+  ## Description
+[Collaborative List](task.md)
 #
-[Solution Description](fix.md)
+[APP DEMO](collaborative_list.md)
