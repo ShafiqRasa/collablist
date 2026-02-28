@@ -1,4 +1,4 @@
-## Solution
+## APP Demo
 We have an editable list that users collaborate on concurrently. Each item in the list should have a unique ID, as I suggest storing data in an array of objects, rather than an array of string. In this way we can not only apply CRUD functionality, but also block the input box while focusing to the other concurrent users to avoid overwriting. 
 
 ## A Quick Demo, to illustrate what was happening under the hood when two user use the list concurrently!
