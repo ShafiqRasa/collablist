@@ -24,6 +24,6 @@ Top-level folders
 - types -- shared types between client and server
 
   ## Description
-[Collaborative List](task.md)
+[Collaborative List](collaborative_list.md)
 #
-[APP DEMO](collaborative_list.md)
+[APP DEMO](fix.md)
